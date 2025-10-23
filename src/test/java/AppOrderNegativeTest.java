@@ -67,6 +67,17 @@ public class AppOrderNegativeTest {
     }
 
     @Test
+    @DisplayName("Ошибка при пустом поле телефона")
+    void shouldShowErrorIfPhoneEmpty() {
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Ольга Сидорова");
+        driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
+        driver.findElement(By.className("button")).click();
+
+        String errorText = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim();
+        assertEquals("Поле обязательно для заполнения", errorText);
+    }
+
+    @Test
     @DisplayName("Ошибка при неустановленном флажке согласия")
     void shouldShowErrorIfNoAgreement() {
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Сергей Петров");
